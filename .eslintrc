@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "semi": [1, "always"],
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-root-import": {}
+    }
+  }
+}
