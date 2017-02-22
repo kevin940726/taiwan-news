@@ -5,7 +5,7 @@ const url = 'http://www.appledaily.com.tw/realtimenews/article/local/20170222/10
 let news = {};
 
 beforeAll(async () => {
-  news = await twnews(url);
+  news = await twnews(url, 'appledaily');
   return news;
 });
 
