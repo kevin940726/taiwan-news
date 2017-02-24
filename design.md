@@ -31,7 +31,7 @@ News {
     isPrimary: boolean,
   }[]?,
   date: Date,
-  sources: string?,
+  sources: string[]?,
   categories: string?,
   social: {
     facebook: {

@@ -47,6 +47,10 @@ async function appledaily(fetch, cheerio, url) {
   });
   // get medias
 
+  const sources = [];
+  // get sources
+  // need examples
+
   return {
     url,
     platform,
@@ -56,6 +60,7 @@ async function appledaily(fetch, cheerio, url) {
     authors,
     categories,
     medias,
+    sources,
   };
 }
 

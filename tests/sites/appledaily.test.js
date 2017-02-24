@@ -64,3 +64,7 @@ test('find the medias of the news', () => {
     },
   ]);
 });
+
+test('find the sources of the news', () => {
+  expect(news.sources).toEqual([]);
+});
