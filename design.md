@@ -28,6 +28,7 @@ News {
     url: string,
     photographers: string[],
     isVideo: boolean,
+    isPrimary: boolean,
   }[]?,
   date: Date,
   sources: string?,

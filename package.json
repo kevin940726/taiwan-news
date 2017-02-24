@@ -7,7 +7,7 @@
   "author": "Kai Hao",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watch",
     "lint": "eslint ./",
     "start": "babel-node src/index.js"
   },

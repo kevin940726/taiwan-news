@@ -1,35 +1,61 @@
+const platform = 'appledaily';
+
 async function appledaily(fetch, cheerio, url) {
   const $ = await fetch(url)
     .then(res => res.text())
     .then(body => cheerio.load(body));
 
-  const dateRegex = /(\d{4})年(\d{2})月(\d{2})日(\d{2}):(\d{2})/g;
-  const authorsRegex = /（(.*)／.*報導）/g;
+  const jsonld = JSON.parse($('script[type="application/ld+json"]').html());
+  // get JSON-LD schema object
 
-  const title = $('#h1').text();
+  const AUTHORS_REGEX = /（(.*)／.*報導）/g;
+  const PHOTOGRAPHERS_REGEX = /^(.*[\u3000-\u303F])(.*)攝$/g;
+
+  const title = jsonld.headline || $('#h1').text();
   // get title
 
-  const content = $('#summary').text().replace(authorsRegex, '');
+  const summary = $('#summary').text();
+
+  const content = summary.replace(AUTHORS_REGEX, '');
   // get content
 
-  const dateGroup = dateRegex.exec($('time').text());
-  const date = dateGroup ?
-    new Date(dateGroup[1], +dateGroup[2] - 1, dateGroup[3], dateGroup[4], dateGroup[5]) :
-    null;
+  const date = new Date(jsonld.dateCreated);
   // get date
 
-  const authorsGroup = authorsRegex.exec($('#summary').text());
+  const authorsGroup = AUTHORS_REGEX.exec(summary);
   const authors = authorsGroup ?
     [authorsGroup[1]] :
     [];
   // get authors
   // need to find examples with multiple authors
 
+  const categories = jsonld.keywords;
+  // get categories
+
+  const medias = $('.lbimg.sgimg a')::Array.prototype.map((node) => {
+    const img = $(node);
+    const photographersGroup = PHOTOGRAPHERS_REGEX.exec(img.attr('title'));
+    PHOTOGRAPHERS_REGEX.lastIndex = 0;
+
+    return {
+      url: img.attr('href'),
+      photographers: photographersGroup ? [photographersGroup[2]] : [],
+      caption: photographersGroup ? photographersGroup[1] : '',
+      isVideo: false,
+      isPrimary: img.hasClass('t1'),
+    };
+  });
+  // get medias
+
   return {
+    url,
+    platform,
     title,
     content,
     date,
     authors,
+    categories,
+    medias,
   };
 }
 
