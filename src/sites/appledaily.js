@@ -51,16 +51,26 @@ async function appledaily(fetch, cheerio, url) {
   // get sources
   // need examples
 
+  const subtitle = '';
+  // get subtitle
+  // need examples
+
+  const social = {};
+  // get social counts
+  // need implement
+
   return {
     url,
     platform,
     title,
+    subtitle,
     content,
     date,
     authors,
     categories,
     medias,
     sources,
+    social,
   };
 }
 

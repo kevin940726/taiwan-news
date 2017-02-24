@@ -68,3 +68,15 @@ test('find the medias of the news', () => {
 test('find the sources of the news', () => {
   expect(news.sources).toEqual([]);
 });
+
+test('find the subtitle of the news', () => {
+  expect(news.subtitle).toBe('');
+});
+
+test('find the social of the news', () => {
+  expect(news.social).toEqual({
+    facebook: {
+      likes: 21,
+    },
+  });
+});
