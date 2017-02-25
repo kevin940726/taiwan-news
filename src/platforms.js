@@ -1,6 +1,9 @@
+/* @flow */
 import appledaily from './sites/appledaily';
 
-function platforms(platform) {
+import type { Site } from '../flow/twnews.js.flow';
+
+function platforms(platform: string): Site {
   return {
     appledaily,
   }[platform];

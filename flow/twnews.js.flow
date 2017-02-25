@@ -26,3 +26,5 @@ export type News = {
   social: Social,
   isStory: boolean,
 };
+
+export type Site = (url: string, platform: string) => Promise<News>;
