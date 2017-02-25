@@ -51,7 +51,7 @@ async function appledaily(fetch, cheerio, url) {
   // get sources
   // need examples
 
-  const subtitle = '';
+  const subtitle = null;
   // get subtitle
   // need examples
 
