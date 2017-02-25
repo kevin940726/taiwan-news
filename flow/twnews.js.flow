@@ -1,0 +1,28 @@
+export type Medias = {
+  url: string,
+  photographers: string[],
+  isVideo: boolean,
+  isPrimary: boolean,
+}[];
+
+export type Social = {
+  facebook: ?{
+    likes: ?number,
+    shares: ?number,
+  },
+};
+
+export type News = {
+  url: string,
+  platform: string,
+  title: string,
+  subtitle: ?string,
+  content: string,
+  authors: string[],
+  date: Date,
+  medias: ?Medias,
+  sources: ?string[],
+  categories: ?string,
+  social: Social,
+  isStory: boolean,
+};

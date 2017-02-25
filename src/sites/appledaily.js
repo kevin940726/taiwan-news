@@ -1,6 +1,11 @@
-const platform = 'appledaily';
+/* @flow */
+import typeof Fetch from 'isomorphic-fetch';
+import typeof Cheerio from 'cheerio';
+import type { News } from '../../flow/twnews.js.flow';
 
-async function appledaily(fetch, cheerio, url) {
+const platform: string = 'appledaily';
+
+async function appledaily(fetch: Fetch, cheerio: Cheerio, url: string): Promise<News> {
   const $ = await fetch(url)
     .then(res => res.text())
     .then(body => cheerio.load(body));
@@ -8,8 +13,8 @@ async function appledaily(fetch, cheerio, url) {
   const jsonld = JSON.parse($('script[type="application/ld+json"]').html());
   // get JSON-LD schema object
 
-  const AUTHORS_REGEX = /（(.*)／.*報導）/g;
-  const PHOTOGRAPHERS_REGEX = /^(.*[\u3000-\u303F])(.*)攝$/g;
+  const AUTHORS_REGEX: RegExp = /（(.*)／.*報導）/g;
+  const PHOTOGRAPHERS_REGEX: RegExp = /^(.*[\u3000-\u303F])(.*)攝$/g;
 
   const title = jsonld.headline || $('#h1').text();
   // get title
@@ -32,7 +37,7 @@ async function appledaily(fetch, cheerio, url) {
   const categories = jsonld.keywords;
   // get categories
 
-  const medias = $('.lbimg.sgimg a')::Array.prototype.map((node) => {
+  const medias = Array.prototype.map.call($('.lbimg.sgimg a'), (node) => {
     const img = $(node);
     const photographersGroup = PHOTOGRAPHERS_REGEX.exec(img.attr('title'));
     PHOTOGRAPHERS_REGEX.lastIndex = 0;
